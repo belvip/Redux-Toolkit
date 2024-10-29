@@ -29,7 +29,7 @@ const CartContainer = () => {
             <footer>
                 <hr />
                 <div className="cart-total">
-                    <h4>total <span>{total}xaf</span></h4>
+                    <h4>total <span>{total.toFixed(2)}xaf</span></h4>
                 </div>
                 
             </footer>
