@@ -402,9 +402,9 @@ function App() {
   const { cartItems, isLoading } = useSelector((store) => store.cart);
   const { isOpen } = useSelector((store) => store.modal);
   const dispatch = useDispatch();
+}
 ```
 
---
 
 ## modalSlice.js
 
@@ -419,3 +419,50 @@ const initialState = {
     isOpen: false,
 };
 ```
+
+
+
+## Explication des Concepts Utilisés
+
+### CartContainer
+
+- **`useDispatch`** et **`useSelector`** : Ces hooks Redux sont utilisés pour accéder et modifier l'état global de l'application :
+  - **`useDispatch`** : Utilisé pour déclencher des actions, ici l'action `openModal` pour ouvrir la fenêtre modale de confirmation.
+  - **`useSelector`** : Permet d'accéder à l'état du panier `(cart)` dans le store, y compris les éléments `(cartItems)`, le montant total `(total)`, et la quantité d'articles `(amount)`.
+
+- **Condition d'affichage du panier vide** : Si la quantité totale `amount` est inférieure à 1, un message est affiché pour indiquer que le panier est vide.
+
+- **Bouton "Vider le Panier"** : Un bouton qui déclenche l'action `openModal` pour afficher une confirmation avant de vider le panier.
+
+---
+
+### CartItem
+
+- **`removeItem`**, **`increase`**, et **`decrease`** : Ces actions sont importées depuis `cartSlice` et déclenchées via `dispatch`. Elles permettent :
+  - **`removeItem`** : Supprime l'article du panier.
+  - **`increase`** : Augmente la quantité de l'article.
+  - **`decrease`** : Diminue la quantité de l'article ; si elle atteint 1, l'article est retiré.
+
+- **Boutons Chevron** : Les icônes `ChevronUp` et `ChevronDown` permettent d'ajuster la quantité de chaque article.
+
+## Fonctionnalités du Composant
+
+### CartContainer
+
+- **Affichage des informations** : Affiche le titre, le prix et la quantité de chaque article dans le panier.
+- **Interactivité** : Permet à l'utilisateur d'ajuster la quantité des articles et de vider le panier.
+
+---
+
+### CartItem
+
+- **Affichage des informations** : Affiche l'image, le titre et le prix de chaque article.
+- **Contrôle de la quantité** : Utilise des boutons pour augmenter ou diminuer la quantité de l'article.
+- **Suppression de l'article** : Le bouton "Supprimer" permet de retirer un article spécifique du panier.
+
+---
+
+### Modal
+
+- **Affichage de la fenêtre modale** : Confirme la suppression de tous les articles du panier.
+- **Actions de confirmation** : Utilise Redux pour déclencher des actions de suppression du contenu du panier et pour fermer la modale.
